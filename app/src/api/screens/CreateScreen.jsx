@@ -10,7 +10,6 @@ const CreatePostScreen = ({ navigation, route }) => {
   const handleCreatePost = async () => {
     try {
       const response = await createPost({ title, body });
-      // Assuming response.data is the newly created post object
       handleNewPost(response.data); // Call the callback to update HomeScreen
       navigation.navigate('Home');
     } catch (error) {
@@ -27,12 +26,14 @@ const CreatePostScreen = ({ navigation, route }) => {
         onChangeText={setTitle}
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, styles.textArea]}
         placeholder="Body"
         value={body}
         onChangeText={setBody}
+        multiline
+        numberOfLines={4}
       />
-      <Button title="Create Post" onPress={handleCreatePost} />
+      <Button title="Create Post" onPress={handleCreatePost} color="#007BFF" />
     </View>
   );
 };
@@ -40,14 +41,24 @@ const CreatePostScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 20,
+    backgroundColor: '#F5F5F5',
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
+    borderColor: '#CCC',
     borderWidth: 1,
-    marginBottom: 10,
-    padding: 10,
+    borderRadius: 8,
+    marginBottom: 15,
+    paddingHorizontal: 10,
+    backgroundColor: '#FFF',
+  },
+  textArea: {
+    height: 100,
+    textAlignVertical: 'top', // for Android to start the text from the top
+  },
+  buttonContainer: {
+    marginTop: 20,
   },
 });
 
